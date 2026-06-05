@@ -7,6 +7,7 @@ import {
   Image,
   Mail,
   Send,
+  ShoppingBag,
 } from "lucide-react";
 import type { FormEvent } from "react";
 import { useState } from "react";
@@ -16,9 +17,9 @@ import InfiniteGallery from "@/components/react-bits/infinite-gallery";
 import ParallaxCarousel from "@/components/react-bits/parallax-carousel";
 import PixelReveal from "@/components/react-bits/pixel-reveal";
 import Watercolor from "@/components/react-bits/watercolor";
+import { avocadoCheckout, hasAvocadoPaymentLink } from "@/data/checkout";
 import {
   artwork,
-  featuredArtwork,
   heroArtwork,
   landscapeFourByThreeArtwork,
   portraitFourByFiveArtwork,
@@ -133,7 +134,7 @@ export default function App() {
       <main id="main">
         <HeroSection />
         <GallerySection />
-        <FeaturedSection />
+        <BuySection />
         <ProcessSection />
         <CommissionsSection />
         <ContactSection formState={formState} onSubmit={handleSubmit} />
@@ -165,12 +166,15 @@ function SiteNav() {
           <a className="nav-link" href="#commissions">
             Auftraege
           </a>
+          <a className="nav-link" href="#buy">
+            Kaufen
+          </a>
           <a className="nav-link" href="#contact">
             Kontakt
           </a>
         </div>
-        <a className="icon-cta" href="#contact" aria-label="Anfrage senden">
-          <Mail size={18} />
+        <a className="icon-cta" href="#buy" aria-label="Avocado Bild kaufen">
+          <ShoppingBag size={18} />
         </a>
       </nav>
     </header>
@@ -210,12 +214,12 @@ function HeroSection() {
             persoenlicher Handschrift.
           </p>
           <div className="mt-9 flex flex-wrap gap-3">
-            <a className="primary-cta" href="#gallery">
-              Arbeiten ansehen
+            <a className="primary-cta" href="#buy">
+              Avocado kaufen
               <ArrowRight size={18} />
             </a>
-            <a className="secondary-cta" href="#contact">
-              Anfrage senden
+            <a className="secondary-cta" href="#gallery">
+              Arbeiten ansehen
             </a>
           </div>
         </div>
@@ -301,44 +305,52 @@ function GallerySection() {
   );
 }
 
-function FeaturedSection() {
+function BuySection() {
   return (
-    <section id="featured" className="section-shell bg-atelier-ink">
-      <div className="section-heading">
-        <p className="section-kicker text-atelier-turquoise">
-          Verfuegbare Formate
-        </p>
-        <h2 className="section-title">
-          Gross genug fuer Praesenz, nah genug fuer Details.
-        </h2>
-      </div>
-
-      <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-        {featuredArtwork.map((piece) => (
-          <article className="artwork-card group" key={piece.src}>
-            <div className="overflow-hidden">
-              <img
-                src={piece.src}
-                alt={piece.title}
-                width={piece.width}
-                height={piece.height}
-                className="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-[1.04]"
-              />
-            </div>
-            <div className="p-5">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-atelier-cream text-xl font-semibold">
-                  {piece.title}
-                </h3>
-                <span className="status-pill">{piece.size}</span>
-              </div>
-              <p className="text-atelier-muted mt-4 text-sm leading-6">
-                {piece.format} crop with visible brush texture, strong color
-                fields and a quiet gallery presence.
-              </p>
-            </div>
-          </article>
-        ))}
+    <section id="buy" className="section-shell bg-atelier-ink">
+      <div className="buy-panel">
+        <div className="buy-artwork">
+          <img
+            src={squareArtwork.src}
+            alt={squareArtwork.title}
+            width={squareArtwork.width}
+            height={squareArtwork.height}
+            className="aspect-square w-full object-cover"
+          />
+        </div>
+        <div className="buy-copy">
+          <p className="section-kicker text-atelier-green">Direktkauf</p>
+          <h2 className="section-title mt-4">{avocadoCheckout.title}</h2>
+          <p className="text-atelier-muted mt-5 max-w-xl text-lg leading-8">
+            Digitaler Avocado-Kunstdruck aus Bellas farbstarkem Stillleben:
+            sichtbare Pinselstruktur, leuchtende Gelb-Gruen-Werte und ein
+            dunkler Galerierahmen fuer den direkten ersten Drop.
+          </p>
+          <div className="buy-meta">
+            <span>{avocadoCheckout.priceLabel}</span>
+            <span>Einmalzahlung via Stripe</span>
+          </div>
+          {hasAvocadoPaymentLink ? (
+            <a
+              className="primary-cta"
+              href={avocadoCheckout.paymentLink}
+              rel="noreferrer"
+              target="_blank"
+            >
+              Jetzt kaufen
+              <ShoppingBag size={18} />
+            </a>
+          ) : (
+            <a className="primary-cta pending-cta" href="#contact">
+              Stripe-Link fehlt
+              <Mail size={18} />
+            </a>
+          )}
+          <p className="text-atelier-muted mt-4 text-sm leading-6">
+            Der Checkout wird als Stripe Payment Link geoeffnet, sobald der
+            Live-Link mit Schreibrechten erstellt wurde.
+          </p>
+        </div>
       </div>
     </section>
   );

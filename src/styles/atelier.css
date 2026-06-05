@@ -295,12 +295,14 @@ img {
 .artwork-card,
 .service-card,
 .contact-form,
-.process-item {
+.process-item,
+.buy-panel {
   border-radius: 8px;
 }
 
 .artwork-card,
-.service-card {
+.service-card,
+.buy-panel {
   overflow: hidden;
   border: 1px solid rgba(247, 243, 234, 0.14);
   background:
@@ -317,6 +319,55 @@ img {
   border-color: rgba(40, 216, 212, 0.46);
   box-shadow: 0 20px 46px rgba(0, 0, 0, 0.22);
   transform: translateY(-2px);
+}
+
+.buy-panel {
+  display: grid;
+  gap: 0;
+  box-shadow: 0 0 80px rgba(40, 216, 212, 0.12);
+}
+
+.buy-artwork {
+  overflow: hidden;
+  background: #071016;
+}
+
+.buy-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.buy-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-block: 1.7rem;
+}
+
+.buy-meta span {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  border: 1px solid rgba(247, 243, 234, 0.14);
+  border-radius: 999px;
+  padding: 0.35rem 0.8rem;
+  color: #f7f3ea;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.buy-meta span:first-child {
+  border-color: rgba(183, 242, 109, 0.42);
+  background: rgba(183, 242, 109, 0.08);
+  color: #b7f26d;
+}
+
+.pending-cta {
+  border-color: rgba(247, 243, 234, 0.22);
+  background: rgba(247, 243, 234, 0.08);
+  color: #f7f3ea;
 }
 
 .status-pill {
@@ -454,6 +505,10 @@ img {
 @media (min-width: 768px) {
   .section-title {
     font-size: 4rem;
+  }
+
+  .buy-panel {
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
   }
 }
 
