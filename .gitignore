@@ -12,10 +12,13 @@
 
 # testing
 /coverage
+/output/
+.playwright-cli/
 
-# next.js
+# build outputs
 /.next/
 /out/
+/dist/
 
 # production
 /build
@@ -23,6 +26,7 @@
 # misc
 .DS_Store
 *.pem
+.codex/
 
 # debug
 npm-debug.log*
