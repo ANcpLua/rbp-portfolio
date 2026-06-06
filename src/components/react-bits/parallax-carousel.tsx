@@ -13,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 export interface ParallaxCarouselProps {
   /** Ordered list of image URLs. Each becomes a plane in the carousel. */
-  images: string[]; 
+  images: string[];
   /** Plane width in CSS pixels. */
   imageWidth?: number;
   /** Plane height in CSS pixels. */
