@@ -100,10 +100,16 @@ vec3 palette(float t, vec3 base, vec3 amp, vec3 phase) {
 }
 
 void main() {
-  vec2 st = vUv * uScale;
+  // aspect-correct so the swirl keeps its proportions on wide viewports
+  float uAspect = max(uRes.x, 1.0) / max(uRes.y, 1.0);
+  vec2 st = vUv;
+  st.x *= uAspect;
+  st *= uScale;
   float t = uTime * uSpeed;
 
-  vec2 pointerUv = uPointer * uScale;
+  vec2 pointerUv = uPointer;
+  pointerUv.x *= uAspect;
+  pointerUv *= uScale;
   float cursorDist = length(st - pointerUv);
   float cursorInfluence = smoothstep(4.0, 0.0, cursorDist) * uCursorActive * uCursorIntensity;
 
